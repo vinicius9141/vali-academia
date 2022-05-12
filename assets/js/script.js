@@ -1,7 +1,5 @@
 let escreve = 'vazio'
-function teste(nome){
-    alert(`${nome } esta acessando Script.js`)
-}
+
 
 async function getID (){
     let recoverID = document.getElementById('getid').value
