@@ -1,5 +1,4 @@
-let escreve = 'vazio'
-
+let escreve = 0
 
 async function getID (){
     let recoverID = document.getElementById('getid').value
@@ -11,27 +10,42 @@ async function getID (){
 
    for (let  i= 0; i <= request.data.items.length; i++){
        if(recoverID == request.data.items[0].id ){
-           escreve = ('ora ora achamos voce')
-           buildQr(escreve)
+           escreve = 33703
+           buildQr(escreve, recoverID)
            break
        }else{
            console.log('ID inexistente')
        }
    }
 
-   return escreve
+   return recoverID
 }
 
-function buildQr(escreve){
-   let qrcpde = new QRCode(document.getElementById("qrcode"), {
+function buildQr(escreve,recoverID){
+   let qrCode = new QRCode(document.getElementById("qrcode"), {
         text: 'Vinicius',
         idUser: escreve,
         width: 300,
         height: 300,
-        colorDark : "#000000",
+        colorDark : "#FF7F50",
         colorLight : "#ffffff",
         correctLevel : QRCode.CorrectLevel.H
     });
-   console.log("escreveu isso " + qrcpde._htOption.idUser)
+    console.log("escreveu isso " + qrCode._htOption.idUser)
+
+    if (qrCode._htOption.idUser === recoverID){
+        Swal.fire({
+            title: `Cadastro do aluno(a) ${qrCode._htOption.text}`,
+            text: `Id de aluno(a) ${qrCode._htOption.idUser}`,
+            icon: 'info',
+            html:
+                `<button>Pagamento de mensalidade</button>
+                <button>Pagamento de graduação</button>
+                <button>Outros</button>` 
+          })
+    }
+        else{
+            alert('não caiu aqui')
+        }
    qrcode.clear()
 }
